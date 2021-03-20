@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="default_padding">8dp</dimen>
+    <dimen name="normal_margin">16dp</dimen>
+    <dimen name="medium_margin">24dp</dimen>
+    <dimen name="big_margin">32dp</dimen>
+    <dimen name="extra_big_margin">48dp</dimen>
+    <dimen name="match_constraint">0dp</dimen>
+
+    <!--Font-->
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="text_size_normal">16sp</dimen>
+    <dimen name="text_size_medium">18sp</dimen>
+    <dimen name="text_size_large">20sp</dimen>
+    <dimen name="image_size">100dp</dimen>
+    <dimen name="min_height_rv">200dp</dimen>
+</resources>

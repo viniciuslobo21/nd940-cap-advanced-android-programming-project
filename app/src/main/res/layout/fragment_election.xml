@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="electionsViewModel"
+            type="com.example.android.politicalpreparedness.election.ElectionsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.android.politicalpreparedness.MainActivity">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/upcoming_elections_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/min_height_rv"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:itemCount="4"
+            tools:listitem="@layout/elections_item" />
+
+        <ProgressBar
+            android:id="@+id/status_loading_upcoming"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:goneIfNotNull="@{electionsViewModel.upcomingElections}"
+            app:layout_constraintBottom_toBottomOf="@id/upcoming_elections_list"
+            app:layout_constraintEnd_toEndOf="@id/upcoming_elections_list"
+            app:layout_constraintStart_toStartOf="@id/upcoming_elections_list"
+            app:layout_constraintTop_toTopOf="@id/upcoming_elections_list" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/saved_elections_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/extra_big_margin"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/upcoming_elections_list"
+            tools:itemCount="4"
+            tools:listitem="@layout/elections_item" />
+
+        <ProgressBar
+            android:id="@+id/status_loading_saved"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:goneIfNotNull="@{electionsViewModel.savedElections}"
+            app:layout_constraintBottom_toBottomOf="@id/saved_elections_list"
+            app:layout_constraintEnd_toEndOf="@id/saved_elections_list"
+            app:layout_constraintStart_toStartOf="@id/saved_elections_list"
+            app:layout_constraintTop_toTopOf="@id/saved_elections_list" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

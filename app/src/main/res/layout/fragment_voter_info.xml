@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.android.politicalpreparedness.election.VoterInfoViewModel" />
+
+        <variable
+            name="election"
+            type="com.example.android.politicalpreparedness.data.network.models.Election" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.example.android.politicalpreparedness.MainActivity">
+
+
+            <TextView
+                android:id="@+id/state_header"
+                style="@style/TitleScreenStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{election.name}"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Wiscosin Election" />
+
+            <TextView
+                android:id="@+id/election_date"
+                style="@style/TextNormalStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/big_margin"
+                android:gravity="center"
+                app:electionDateText="@{election}"
+                app:layout_constraintStart_toStartOf="@id/election_date"
+                app:layout_constraintTop_toBottomOf="@id/state_header"
+                tools:text="Election date 2020" />
+
+            <TextView
+                android:id="@+id/election_information_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/big_margin"
+                android:onClick="@{() -> viewModel.openElectionInformationUrl()}"
+                android:text="@string/election_information"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/election_date" />
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/local_image"
+                android:layout_width="@dimen/image_size"
+                android:layout_height="@dimen/image_size"
+                android:layout_marginTop="@dimen/big_margin"
+                android:background="?selectableItemBackgroundBorderless"
+                android:enabled="@{viewModel.hasVotingLocationsInformation}"
+                android:onClick="@{() -> viewModel.openVotingLocationsUrl()}"
+                android:src="@drawable/ic_local"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/election_information_header" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ballot_image"
+                android:layout_width="@dimen/image_size"
+                android:layout_height="@dimen/image_size"
+                android:layout_marginTop="@dimen/big_margin"
+                android:background="?selectableItemBackgroundBorderless"
+                android:enabled="@{viewModel.hasBallotInformation}"
+                android:onClick="@{() -> viewModel.openBallotInfoUrl()}"
+                android:src="@drawable/ic_launcher_foreground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/local_image" />
+
+            <TextView
+                android:id="@+id/state_correspondence_header"
+                style="@style/TitleScreenStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/big_margin"
+                android:background="@color/white"
+                android:text="@string/correspondence_address"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_large"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ballot_image" />
+
+            <TextView
+                android:id="@+id/address"
+                customText="@{viewModel.hasCorrespondenceInformation}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/big_margin"
+                android:text="@{viewModel.correspondenceAddress}"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/state_correspondence_header"
+                tools:text="Florida Division Of Elections, R.a. Gray Building, Room 316, 500 South Bronough Street" />
+
+            <ProgressBar
+                android:id="@+id/status_loading_saved"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                app:goneIfNotNull="@{viewModel.hasCorrespondenceInformation}"
+                app:layout_constraintBottom_toBottomOf="@id/address"
+                app:layout_constraintEnd_toEndOf="@id/address"
+                app:layout_constraintStart_toStartOf="@id/address"
+                app:layout_constraintTop_toTopOf="@id/address" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/upcoming_button"
+                style="@style/DefaultButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/normal_margin"
+                android:onClick="@{() -> viewModel.toggleFollow()}"
+                android:text="@{viewModel.buttonText}"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>
